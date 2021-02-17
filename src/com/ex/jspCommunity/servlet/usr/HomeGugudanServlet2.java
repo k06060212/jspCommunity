@@ -2,14 +2,15 @@ package com.ex.jspCommunity.servlet.usr;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/usr/home/gugudan")
-public class HomeGugudanServlet extends HttpServlet {
+@WebServlet("/usr/home/gugudan2")
+public class HomeGugudanServlet2 extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,12 +29,12 @@ public class HomeGugudanServlet extends HttpServlet {
 			limit = Integer.parseInt(request.getParameter("limit"));
 		}
 		
-		response.getWriter().append("<div>"+String.format("구구단 %d단", dan)+"</d>");
+		request.setAttribute("dan", dan);
+		request.setAttribute("limit", limit);
 		
-		for (int i = 1; i <= limit; i++) {
-			response.getWriter().append("<div>"+String.format("%d * %d = %d", dan, i, dan * i)+"</d>");
-			
-		}
+		RequestDispatcher rDispatcher = request.getRequestDispatcher("/jsp/usr/home/gugudan2.jsp");
+		rDispatcher.forward(request, response);
+		
 	}
 	
 }
